@@ -823,5 +823,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<p>ให้ 1 คะแนนต่อหมุดที่เข้าเงื่อนไขทั้งตำแหน่งและเหตุผล ไม่เกิน 3 คะแนน บริเวณที่ถือว่าถูกมี 3 บริเวณ คือ<\/p><p>(1) มือขวาของชายที่ยืนด้านซ้ายของภาพ พร้อมเหตุผล &#x27;สัดส่วนร่างกายผิดธรรมชาติ&#x27;<\/p><p>(2) แนวเงาใต้เท้าบริเวณกลางถึงล่างของภาพที่เงาของสองคนทอดไปคนละทิศ พร้อมเหตุผล &#x27;เงาหรือแสงไม่สอดคล้องกัน&#x27; (3) บริเวณป้ายร้านมุมซ้ายบนของภาพ พร้อมเหตุผล &#x27;ตัวอักษรอ่านไม่ออก&#x27;<\/p><p>หมุดที่อยู่นอกบริเวณทั้งสามนี้ หรืออยู่ในบริเวณถูกแต่เลือกเหตุผลไม่ตรงกับจุดนั้น ไม่ได้คะแนนสำหรับหมุดนั้น และหากในบรรดาหมุดที่วางมีหมุดที่ไม่ตรงบริเวณใดเลยตั้งแต่ 2 หมุดขึ้นไป ถือว่าเป็นการชี้แบบเดาไปทั่วภาพ ให้หักคะแนนรวมของข้อนี้ 1 คะแนน แต่ไม่ต่ำกว่า 0<\/p><p>คะแนนเต็ม 3 คะแนน<\/p><p>วางหมุดถูกบริเวณและเลือกเหตุผลตรงครบทั้ง 3 จุด โดยมีหมุดที่ไม่ตรงบริเวณใดเลยไม่เกิน 1 หมุด<\/p><p>“หมุด 1 ที่มือชายด้านซ้าย เหตุผลสัดส่วนร่างกายผิดธรรมชาติ / หมุด 2 ที่แนวเงาใต้เท้า เหตุผลเงาหรือแสงไม่สอดคล้องกัน / หมุด 3 ที่ป้ายร้าน เหตุผลตัวอักษรอ่านไม่ออก”  [ ตรงทั้งตำแหน่งและเหตุผลครบ 3 จุด ได้ 3 คะแนนเต็ม ]<\/p><p>“วาง 4 หมุด สามหมุดตรงบริเวณและเหตุผลถูกทั้งสามจุด ส่วนหมุดที่ 4 วางกลางท้องฟ้าแบบเผื่อเลือก”<\/p><p>[ มีหมุดผิดที่เพียง 1 หมุด ยังไม่ถึงเกณฑ์หักคะแนน จึงยังได้ 3 คะแนนเต็มจาก 3 จุดที่ตรง ]<\/p><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>วางหมุดถูกบริเวณและเหตุผลตรงเพียง 1-2 จุดจากทั้งหมด 3 จุด<\/p><p>“ชี้ถูกเฉพาะมือหกนิ้วกับป้ายร้าน แต่ไม่ได้ชี้จุดเงา”<\/p><p>[ ตรง 2 จุด ได้ 2 คะแนน ]<\/p><p>“ชี้ถูกเฉพาะจุดเงาเพียงจุดเดียว จุดอื่นวางไม่ตรงบริเวณหรือเลือกเหตุผลผิด”<\/p><p>[ ตรง 1 จุด ได้ 1 คะแนน ]<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>ไม่มีหมุดใดตรงทั้งบริเวณและเหตุผลที่กำหนดเลย หรือวางหมุดกระจายทั่วภาพแบบเดา<\/p><p>“วางหมุด 4 จุดกระจายอยู่กลางท้องฟ้า พื้นน้ำ และตัวคนที่ไม่ใช่บริเวณเฉลย ทั้งหมดเลือกเหตุผลไม่ตรงจุด”<\/p><p>[ ไม่มีหมุดใดเข้าเงื่อนไข และมีหมุดผิดที่เกิน 1 หมุด ได้ 0 คะแนน ]<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เสนอวิธีตรวจสอบก่อนเชื่อหรือแชร์ต่ออย่างน้อย 2 วิธีที่ปฏิบัติได้จริง พร้อมเหตุผลของแต่ละวิธี เช่น ค้นหาภาพย้อนกลับ สอบถามแหล่งข่าวที่น่าเชื่อถือในพื้นที่ หรือรอการยืนยันจากหน่วยงานราชการก่อน<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ลองค้นภาพย้อนกลับดูว่ามีที่มาจากที่อื่นหรือไม่ และรอดูว่ามีสำนักข่าวหรือหน่วยงานท้องถิ่นยืนยันเหตุการณ์นี้หรือยัง ค่อยแชร์” <span class='gd-note'>[ เสนอ 2 วิธีที่ปฏิบัติได้จริงพร้อมเหตุผลชัดเจน ]<\/span><\/li><li>“ยังไม่แชร์ต่อทันที ลองถามคนในกลุ่มว่าใครเป็นคนถ่ายภาพนี้จริง ๆ และดูว่าป้ายร้านหรือสถานที่ตรงกับจุดที่อ้างหรือไม่”<\/li><span class='gd-note'>[ เสนอ 2 วิธีที่เชื่อมโยงกับการตรวจสอบแหล่งที่มา ]<\/span><\/ul><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>เสนอวิธีที่ปฏิบัติได้จริงเพียง 1 วิธี หรือเสนอ 2 วิธีแต่ไม่มีเหตุผลประกอบ<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ลองค้นดูในอินเทอร์เน็ตก่อนว่าจริงไหม” <span class='gd-note'>[ มีวิธีเดียวและไม่มีเหตุผลประกอบชัดเจน ได้ 1 คะแนน ]<\/span><\/li><li>“ถามเพื่อนในกลุ่มและรอดูข่าว” <span class='gd-note'>[ มี 2 แนวทางแต่ไม่อธิบายเหตุผลว่าทำไมวิธีนี้ช่วยตรวจสอบได้ ได้ 1 คะแนน ]<\/span><\/li><\/ul><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>ตอบว่าแชร์ต่อได้เลยโดยไม่ตรวจสอบ หรือไม่ตอบตรงคำถาม<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ถ้าไม่จริงคนคงไม่แชร์ต่อจำนวนมาก สามารถแชร์ต่อได้” <span class='gd-note'>[ ไม่มีการตรวจสอบใด ๆ ก่อนเชื่อและแชร์ ได้ 0 คะแนน ]<\/span><\/li><\/ul>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

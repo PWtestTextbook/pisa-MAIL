@@ -543,5 +543,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เลือกข้อ 2 เพราะบทสนทนาที่เนยพิมพ์มีทั้งข้อมูลส่วนตัวของครอบครัวและชื่อ/อาการป่วยของเพื่อนที่ไม่ได้รับความยินยอม เมื่อเปิดตัวเลือกนี้ข้อมูลจะถูกส่งให้ทีมตรวจสอบภายนอกอ่านและเก็บไว้นานถึงสามปี<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เลือกข้ออื่นนอกจากข้อ 2 เช่น ข้อที่เกี่ยวกับรูปภาพ ตำแหน่งที่ตั้ง หรือโปรโมชัน ซึ่งมีขอบเขตความเสี่ยงจำกัดกว่าและไม่ได้เชื่อมโยงกับข้อมูลของบุคคลอื่นในสถานการณ์โดยตรง<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>กล่าวถึงครบทั้งสามส่วนอย่างสมเหตุสมผลและเชื่อมโยงกับรายละเอียดในสถานการณ์<\/p><div class='gd-h gd-el'>องค์ประกอบที่ต้องมี<\/div><ul><li>ระบุตัวเลือกที่ควรปิดหรือเปลี่ยนพร้อมเหตุผลที่เชื่อมโยงกับสถานการณ์ เช่น ปิดการใช้บทสนทนาฝึกโมเดลเพราะมีข้อมูลของปูอยู่ในนั้น<\/li><li>อธิบายความเสี่ยงของการพิมพ์ข้อมูลส่วนตัวของตนเองหรือผู้อื่น (เช่น เรื่องพ่อแม่แยกกันอยู่ หรือชื่อและอาการป่วยของปู) ลงในแชท AI ที่อาจถูกคนอื่นเห็นหรือเก็บไว้นาน<\/li><li>เสนอแนวปฏิบัติที่เป็นรูปธรรมก่อนพิมพ์ข้อความในอนาคต เช่น ไม่พิมพ์ชื่อจริงของเพื่อน ขออนุญาตก่อนพูดถึงเรื่องของคนอื่น หรืออ่านการตั้งค่าก่อนกดยอมรับ<\/li><\/ul><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“เนยควรปิดตัวเลือกที่ให้เอาแชทไปฝึกโมเดล เพราะในแชทมีเรื่องของปูที่ปูไม่ได้ยินยอมให้พูดถึง ถ้าเปิดไว้คนอื่นอาจได้อ่านชื่อกับอาการป่วยของปู ต่อไปเนยจะไม่พิมพ์ชื่อเพื่อนหรือเรื่องส่วนตัวมากลงในแชท จะถามแบบทั่วไปแทนและจะอ่านหน้าตั้งค่าก่อนกดยอมรับทุกครั้ง”   <span class='gd-note'>[ครบสามส่วนและเชื่อมโยงกับสถานการณ์ชัดเจน]<\/span><\/li><li>“หนูจะปิดตัวเลือกเก็บบันทึกแชทไว้ 3 ปีกับตัวเลือกฝึกโมเดล เพราะไม่อยากให้เรื่องพ่อแม่แยกทางถูกเก็บไว้นานขนาดนั้น การพิมพ์เรื่องส่วนตัวลงไปเสี่ยงเพราะมีคนอื่นอาจมาอ่านได้ ต่อไปถ้าจะปรึกษาเรื่องเพื่อนจะไม่บอกชื่อจริง และจะถามเพื่อนก่อนว่าโอเคไหมที่จะเอาเรื่องไปถาม AI”   <span class='gd-note'>[ครบสามส่วน ระบุเหตุผลเชื่อมโยงกับสถานการณ์ชัดเจน]<\/span><\/li><\/ul><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>กล่าวถึงเพียง 1-2 ส่วนจาก 3 ส่วนที่กำหนด หรือกล่าวครบสามส่วนแต่บางส่วนคลุมเครือไม่เชื่อมโยงกับสถานการณ์<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“เนยควรปิดตัวเลือกฝึกโมเดลเพราะมันเอาข้อมูลเราไปใช้ อย่างอื่นก็เฉยๆ”   <span class='gd-note'>[กล่าวถึงเพียงส่วนที่ 1 ไม่ได้พูดถึงความเสี่ยงต่อผู้อื่นหรือแนวทางในอนาคต]<\/span><\/li><li>“หนูว่าไม่ควรพิมพ์เรื่องส่วนตัวลงไปเพราะอาจมีคนอื่นอ่านได้ ต่อไปจะระวังมากขึ้น”   <span class='gd-note'>[กล่าวถึงส่วนที่ 2 และ 3 แต่ไม่ได้ระบุตัวเลือกที่ควรปิด]<\/span><\/li><\/ul><p>ไม่ได้คะแนน (0 คะแนน)<\/p><p>ไม่ตอบตรงคำถาม ตอบคลุมเครือเกินไปโดยไม่อ้างถึงสถานการณ์ หรือกล่าวซ้ำโจทย์<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ไม่ควรใช้แอปนี้อีกเลยเพราะมันไม่ดี”   <span class='gd-note'>[ไม่ระบุเหตุผลเชื่อมโยงกับสถานการณ์ คลุมเครือเกินไป]<\/span><\/li><li>“เนยควรอ่านให้ดีก่อนกด”   <span class='gd-note'>[กล่าวซ้ำโจทย์ ไม่ระบุองค์ประกอบใดครบถ้วน]<\/span><\/li><\/ul>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

@@ -549,5 +549,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>ตอบถูกทั้ง 5 แถว : แถว 1, 2, 3, 5 = เป็นสัญญาณเตือน / แถว 4 = ไม่ใช่สัญญาณเตือน<\/p><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>ตอบถูก 3-4 แถว<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>ตอบถูกน้อยกว่า 3 แถว<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>คำตอบระบุเหตุผลที่เป็นรูปธรรมจากคลิป (เช่น เสียงผิดธรรมชาติ ตำแหน่งตรวจสอบไม่ได้ หรือข้อปฏิเสธความรับผิดอ่านเร็ว) อย่างน้อย 1 ข้อ พร้อมข้อเสนอแนะการกระทำที่เป็นรูปธรรมก่อนซื้อ<\/p><div class='gd-h gd-el'>องค์ประกอบที่ต้องมี<\/div><ul><li>ต้องระบุเหตุผลที่เป็นรูปธรรมจากคลิปอย่างน้อย 1 ข้อ ไม่ใช่ความรู้สึกทั่วไปอย่าง &#x27;มันดูแปลก ๆ&#x27; เฉย ๆ<\/li><li>ต้องมีข้อเสนอแนะการกระทำที่เป็นรูปธรรมก่อนซื้อ เช่น ตรวจสอบชื่อแพทย์ หรือปรึกษาแพทย์จริง<\/li><\/ul><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ยายรอก่อนนะ เสียงหมอในคลิปมันเรียบไปหมดเลย ไม่หายใจเลยสักครั้ง หนูว่าอาจจะเป็นเสียงปลอมนะ ลองถามหมอที่คลินิกวันนี้ดูก่อนดีกว่าว่ากินได้จริงไหม”   <span class='gd-note'>[ระบุเหตุผลที่เป็นรูปธรรม + เสนอแนะการตรวจสอบ]<\/span><\/li><li>“ยายอย่าเพิ่งสั่งเลย ตำแหน่ง &#x27;ที่ปรึกษาราชวิทยาลัย&#x27; ที่พูดในคลิปหนูหาไม่เจอเลยว่ามีจริงไหม รอหนูลองเช็คให้ก่อนดีกว่านะ”   <span class='gd-note'>[ระบุเหตุผลที่เป็นรูปธรรม + เสนอแนะรอตรวจสอบ]<\/span><\/li><\/ul><p>ได้คะแนนบางส่วน (1 คะแนน)<\/p><p>คำตอบมีเพียงเหตุผลหรือเพียงข้อเสนอแนะอย่างใดอย่างหนึ่งเท่านั้น<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ยายอย่าเพิ่งซื้อเลยนะ เดี๋ยวหนูเช็คให้ก่อน”   <span class='gd-note'>[มีข้อเสนอแนะแต่ไม่ได้ระบุเหตุผลที่เป็นรูปธรรมจากคลิป]<\/span><\/li><li>“เสียงหมอในคลิปมันแปลก ๆ นะยาย ไม่น่าเชื่อ”   <span class='gd-note'>[ระบุความน่าสงสัยแต่ไม่มีข้อเสนอแนะการกระทำ]<\/span><\/li><\/ul><p>ไม่ได้คะแนน (0 คะแนน)<\/p><p>คำตอบไม่เกี่ยวข้อง หรือเห็นด้วยกับการซื้อโดยไม่เตือนคุณยาย<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ลองซื้อมากินดูก็ได้ ยายอยากกินก็กินเถอะ”   <span class='gd-note'>[ไม่เตือนคุณยายเลย ไม่นับ]<\/span><\/li><li>“หมอเก่งจังเลยเนอะ”   <span class='gd-note'>[ไม่เกี่ยวข้องกับคำถามที่ถาม]<\/span><\/li><\/ul>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

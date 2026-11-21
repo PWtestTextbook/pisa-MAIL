@@ -479,5 +479,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เลือกครบทั้งข้อ 1, 2, 4 โดยไม่เลือกข้อที่ไม่ใช่สัญญาณอันตราย<\/p><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>เลือกถูก 2 ใน 3 ข้อ โดยเลือกข้อผิดไม่เกิน 1 ข้อ<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เลือกถูกน้อยกว่า 2 ข้อ หรือเลือกข้อผิดมากกว่า 1 ข้อ<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เลือกข้อ 2 ซึ่งชี้ให้เห็นว่าอีเมลอ้างแหล่งข้อมูลที่ตรวจสอบไม่ได้และใช้ความเร่งรีบกดดันให้กรอกข้อมูลส่วนตัว ก่อนคิดให้รอบคอบ<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เลือกข้อ 1 3 หรือ 4 ซึ่งใช้เหตุผลที่ไม่เกี่ยวข้องกับสัญญาณหลอกลวงจริงในอีเมล<\/p>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

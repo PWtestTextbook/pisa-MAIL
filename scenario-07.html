@@ -590,5 +590,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>จับคู่ถูกทั้ง 4 คู่ : ก–1, ข–2, ค–3, ง–4<\/p><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>จับคู่ถูก 2-3 คู่จากทั้งหมด 4 คู่<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>จับคู่ถูกน้อยกว่า 2 คู่<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เรียงลำดับถูกต้องครบทั้งหมด :  ก → ข → ค → ง<\/p><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>เรียงลำดับสลับตำแหน่งที่ติดกัน 1 คู่ เช่น ข → ก → ค → ง แต่ยังคงหลักการทั่วไปของการอ่านข้ามแหล่งไว้<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เรียงลำดับผิดตั้งแต่ 2 ตำแหน่งขึ้นไป หรือนำขั้นตอน &#x27;ตัดสินใจ&#x27; (ง) มาไว้ก่อนขั้นตอนอื่น<\/p>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>คำตอบกล่าวถึงครบทั้ง 3 องค์ประกอบอย่างมีเหตุผลเชื่อมโยงกัน<\/p><div class='gd-h gd-el'>องค์ประกอบที่ต้องมี<\/div><ul><li>เปรียบเทียบความน่าเชื่อถือของแหล่งข้อมูลเชิงการค้า/ไม่ระบุผู้เขียน กับหน่วยงานสาธารณสุข<\/li><li>ระบุข้อมูลขัดแย้งจากกรมอนามัย เช่น ตับไตขับสารพิษได้เองตามธรรมชาติ<\/li><li>ระบุความเสี่ยงต่อสุขภาพที่เป็นรูปธรรม เช่น โซเดียมสูงหรือระคายเคืองกระเพาะ<\/li><\/ul><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“แนนอย่าเพิ่งเชื่อเลยนะ เว็บที่ขายชุดดีทอกซ์เค้าก็อยากขายของ ส่วนเพจสุขภาพดีทุกวันก็ไม่รู้ด้วยซ้ำว่าใครเขียน แต่เว็บกรมอนามัยบอกว่าตับไตเราขับสารพิษเองได้อยู่แล้ว ไม่มีหลักฐานว่าน้ำมะนาวเกลือช่วยอะไรเพิ่ม แถมกินแบบนี้ทุกวันอาจทำให้โซเดียมสูงหรือแสบท้องได้ด้วยนะ โดยเฉพาะแนนที่กระเพาะไม่ดีอยู่แล้ว”   <span class='gd-note'>[ครบ 3 องค์ประกอบ: เปรียบเทียบความน่าเชื่อถือของแหล่ง + ข้อมูลขัดแย้งจากกรมอนามัย + ความเสี่ยงต่อสุขภาพ]<\/span><\/li><li>“ลองคิดดูนะ คนที่บอกว่าดีทอกซ์ได้ผลคือคนขายของกับเพจที่ไม่รู้ว่าใครเขียน แต่กรมอนามัยซึ่งเป็นหน่วยงานที่มีความรู้จริงบอกว่าไม่มีหลักฐานว่าวิธีนี้ช่วยล้างสารพิษ แถมงดอาหารเช้าแล้วดื่มน้ำเกลือทุกวันอาจทำให้เวียนหัวหรือความดันแปรปรวนได้ด้วย”   <span class='gd-note'>[ครบ 3 องค์ประกอบ]<\/span><\/li><\/ul><p>ได้คะแนนบางส่วน (1 คะแนน)<\/p><p>คำตอบกล่าวถึงเพียง 2 ใน 3 องค์ประกอบ<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“เว็บขายของกับเพจที่ไม่รู้ว่าใครเขียนมันเชื่อถือได้น้อยกว่ากรมอนามัยนะ ลองอ่านเว็บกรมอนามัยดูก่อนดีกว่า”   <span class='gd-note'>[กล่าวถึงความน่าเชื่อถือของแหล่งและข้อมูลจากกรมอนามัย แต่ไม่ได้พูดถึงความเสี่ยงต่อสุขภาพ]<\/span><\/li><li>“งดอาหารเช้าแล้วดื่มน้ำเกลือทุกวันแบบนี้เดี๋ยวก็แสบท้องหรือความดันขึ้นได้นะ กระเพาะแนนก็ไม่ดีอยู่แล้วด้วย”   <span class='gd-note'>[กล่าวถึงความเสี่ยงต่อสุขภาพชัดเจน แต่ไม่ได้เปรียบเทียบความน่าเชื่อถือของแหล่งข้อมูลหรืออ้างข้อมูลจากกรมอนามัย]<\/span><\/li><\/ul><p>ไม่ได้คะแนน (0 คะแนน)<\/p><p>คำตอบเห็นด้วยกับพฤติกรรมเสี่ยงโดยไม่ตั้งคำถาม หรือใช้ความนิยมของคลิปเป็นเกณฑ์ตัดสินความถูกต้อง<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ลองก็ได้มั้ง เผื่อได้ผลจริง”   <span class='gd-note'>[เห็นด้วยกับพฤติกรรมเสี่ยงโดยไม่ตั้งคำถามใด ๆ]<\/span><\/li><li>“คลิปนี้คนดูเยอะนะ น่าจะจริง”   <span class='gd-note'>[ใช้ความนิยมเป็นเกณฑ์ตัดสินความถูกต้อง ไม่เกี่ยวข้องกับประเด็นที่ถาม]<\/span><\/li><\/ul>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

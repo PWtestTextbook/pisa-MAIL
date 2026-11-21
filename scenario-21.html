@@ -998,5 +998,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>ระบุคุณสมบัติที่ยอมให้ลดลงอย่างน้อย 2 อย่างอย่างจงใจ พร้อมอธิบายว่าใครได้รับผลกระทบอย่างเป็นรูปธรรม จากการลดแต่ละอย่าง เชื่อมโยงกับตัวเลขชิปที่จัดสรรจริง<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ให้ความเป็นส่วนตัว 1 ชิปและการดูแลโดยมนุษย์ 1 ชิป เพราะอยากให้ระบบแม่นยำและเร็วที่สุดตอนเช้าที่คนแน่น แต่รู้ว่านักเรียนที่หน้าคล้ายพี่น้องกันอาจถูกระบบจำผิดแล้วไม่มีครูตรวจซ้ำทัน นักเรียนอาจต้องเสียเวลาไปพิสูจน์ตัวเอง ที่ห้องปกครองทุกครั้ง” <span class='gd-note'>[ ระบุ 2 คุณสมบัติที่ลด พร้อมกลุ่มคนที่ได้รับผลชัดเจนและเชื่อมโยงกับสถานการณ์จริงของระบบ ]<\/span><\/li><li>“ให้ความเร็ว 1 ชิปและความแม่นยำ 1 ชิป เพื่อทุ่มให้การดูแลโดยมนุษย์กับความเป็นธรรมสูงสุด เพราะกลัวว่าระบบ จะจำหน้าเด็กที่ใส่แว่นหรือคลุมผมผิดพลาดบ่อยกว่าคนอื่น การให้ครูตรวจซ้ำทุกกรณีที่ระบบไม่มั่นใจจะช่วยไม่ให้เด็ก กลุ่มนี้ถูกกล่าวหาว่าขาดเรียนทั้งที่มาจริง แต่แถวหน้าประตูตอนเช้าจะยาวขึ้น”<\/li><span class='gd-note'>[ ระบุ 2 คุณสมบัติที่ลดชัดเจน พร้อมกลุ่มที่ได้รับผลบวกและผลเสียของการแลกเปลี่ยนทั้งสองฝั่ง ]<\/span><\/ul><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>ระบุคุณสมบัติที่ลดลงได้อย่างน้อยหนึ่งอย่าง หรือบอกผู้ได้รับผลกระทบอย่างกว้าง ๆ โดยไม่เจาะจงกลุ่ม หรืออธิบายการแลกเปลี่ยนไม่ครบทั้งสองฝั่ง<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ให้ความเป็นส่วนตัวน้อยเพราะอยากให้ระบบแม่นยำ คนอาจไม่ชอบที่ถูกถ่ายรูปบ่อย ๆ”<\/li><span class='gd-note'>[ ระบุการลดได้ 1 อย่างและผู้ได้รับผลกว้างเกินไป ไม่เจาะจงว่าใครหรืออย่างไร ]<\/span><\/ul><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>จัดสรรชิปไม่ครบ 12 ชิป หรือไม่มีคำอธิบายการแลกเปลี่ยนเลย หรือเขียนว่าการจัดสรรของตนดีที่สุดโดยไม่กล่าวถึงสิ่งที่เสียไป<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“จัดสรร 3-2-2-2-2-1 เพราะคิดว่าสมดุลดีที่สุดแล้ว”<\/li><span class='gd-note'>[ มีตัวเลขครบแต่ไม่อธิบายว่าอะไรลดลงจงใจหรือใครได้รับผลกระทบจากการลดนั้น ]<\/span><li>“ให้ทุกช่องเท่ากันหมดเพราะยุติธรรมที่สุดและดีที่สุดแล้ว”<\/li><span class='gd-note'>[ ไม่ระบุการแลกเปลี่ยนหรือผู้ได้รับผลกระทบเลย ทั้งที่การให้เท่ากันก็ต้องอธิบายเหตุผลว่ายอมเสียอะไรเช่นกัน ]<\/span><\/ul>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>จัดสรรรอบสองต่างจากรอบแรกในทิศทางที่สมเหตุสมผลกับมุมมองผู้ปกครองของผู้ถูกกระทบ ระบุชัดว่าคุณสมบัติใดเพิ่มขึ้น เพื่อแลกกับคุณสมบัติใดที่ลดลง และอธิบายเหตุผลเชิงมุมมองได้ชัดเจน<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“รอบแรกให้ความเร็ว 3 ชิปเพราะไม่อยากรอคิวนาน แต่พอเป็นผู้ปกครองของนักเรียนที่เคยถูกระบบฟ้องว่าขาดเรียน ทั้งที่มาจริงจนโดนเรียกพบผู้ปกครอง จึงยอมลดความเร็วเหลือ 1 ชิปและเพิ่มการดูแลโดยมนุษย์เป็น 3 ชิป เพราะอยากให้มีครู ตรวจซ้ำทุกครั้งที่ระบบไม่มั่นใจ ถึงแม้แถวจะยาวขึ้นก็ยอม”<\/li><span class='gd-note'>[ เปรียบเทียบชัดเจนทั้งตัวเลขและเหตุผลเชิงมุมมองของผู้ปกครองที่ถูกกระทบ ]<\/span><li>“ตอนเป็นนักเรียนให้ความโปร่งใส 1 ชิปเพราะไม่ได้คิดมาก พอเป็นผู้ปกครองของเด็กที่ถูกกล่าวหาผิด จึงเพิ่มความโปร่งใสเป็น 3 ชิปและลดความเร็วลง 2 ชิป เพราะอยากให้มีช่องทางให้พ่อแม่ตรวจสอบได้ว่าทำไมระบบถึงฟ้องว่าลูกขาดเรียน ไม่ใช่แค่เชื่อผลลัพธ์เฉย ๆ”<\/li><span class='gd-note'>[ ระบุการเปลี่ยนแปลงตัวเลขชัดเจนและอธิบายว่าทำไมมุมมองผู้ถูกกระทบจึงให้น้ำหนักความโปร่งใสมากขึ้น ]<\/span><\/ul><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>จัดสรรรอบสองต่างจากรอบแรกแต่ไม่อธิบายเหตุผลเชิงมุมมองชัดเจน หรืออธิบายเหตุผลได้ดีแต่ตัวเลขที่จัดสรรไม่ได้ เปลี่ยนไปในทิศทางที่สอดคล้องกับเหตุผลนั้น<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“รอบสองเปลี่ยนตัวเลขนิดหน่อยเพราะคิดว่าผู้ปกครองน่าจะอยากได้อะไรที่ต่างจากนักเรียนบ้าง”<\/li><span class='gd-note'>[ มีการเปลี่ยนตัวเลขแต่ไม่ได้อธิบายเหตุผลเชิงมุมมองว่าทำไมจึงเปลี่ยนไปในทิศทางนั้น ]<\/span><li>“ในฐานะผู้ปกครองอยากให้ระบบยุติธรรมกับลูกมากที่สุด ดังนั้นสามารถจัดสรรเช่นเดิมได้เพราะมีคะแนนความยุติธรรมเพียงพอแล้ว”<\/li><span class='gd-note'>[ เหตุผลเชิงมุมมองดีแต่การจัดสรรจริงไม่ได้เปลี่ยนตามเหตุผลที่ให้ไว้ ]<\/span><\/ul><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>จัดสรรรอบสองเหมือนรอบแรกทุกช่องโดยไม่อธิบายว่าทำไมมุมมองที่ต่างกันจึงไม่ทำให้อะไรเปลี่ยน หรือไม่ได้ทำการจัดสรรรอบสองเลย<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“เหมือนรอบแรกเป๊ะ เพราะคิดว่าดีอยู่แล้ว”<\/li><span class='gd-note'>[ ไม่มีการพิจารณามุมมองใหม่หรืออธิบายว่าทำไมมุมมองผู้ปกครองของผู้ถูกกระทบจึงไม่เปลี่ยนความคิดเห็นเลย ]<\/span><\/ul>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เลือกตัวเลือก 1<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เลือกตัวเลือกอื่น<\/p>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>

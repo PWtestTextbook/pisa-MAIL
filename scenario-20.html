@@ -877,5 +877,33 @@
   backBtn.addEventListener("click", exitReview);
 })();
 </script>
+
+<!-- GUIDE-MODE --><style id="guideCss">
+.gd-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0 2px;padding:7px 14px;border-radius:999px;border:1px solid #f0c27a;background:#fff3dc;color:#8a5200;font:600 13px/1 inherit;cursor:pointer;transition:background .15s}
+.gd-btn:hover{background:#ffe8bd}.gd-btn[aria-expanded=true]{background:#ffe0a3}
+.gd-panel{margin:8px 0 2px;padding:12px 14px;border-left:4px solid var(--th-deep,var(--teal-deep,#134e4a));background:#fffaf0;border-radius:8px;font-size:13.5px;line-height:1.55;color:#33302a}
+.gd-panel[hidden]{display:none}.gd-panel ul{margin:4px 0 8px;padding-left:18px}.gd-panel p{margin:4px 0}
+.gd-h{margin:10px 0 3px;font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;display:inline-block}.gd-full{background:#dcf5e4;color:#14673a}.gd-part{background:#fff0c9;color:#8a5200}.gd-zero{background:#fde3e3;color:#9b2222}.gd-el,.gd-ex{background:#e8eef5;color:#27415f}.gd-note{display:block;color:#6b6558;font-size:12.5px;margin:1px 0 4px}.gd-tf{list-style:none;padding-left:0!important}.gd-tf li{margin:3px 0}
+.gd-k{display:inline-block;min-width:74px;text-align:center;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 6px;margin-right:6px}
+.gd-k.y{background:#dcf5e4;color:#14673a}.gd-k.n{background:#fde3e3;color:#9b2222}
+</style><script>
+(function(){
+  var RUB=["<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>ติดป้ายถูกต้องอย่างน้อย 5 ใน 6 จุดสำคัญ รวมถึงระบุว่าชื่อกฎหมายของผู้ช่วย ค เป็นแหล่งที่แต่งขึ้นเอง และคำตอบสังเคราะห์สรุปว่าต้องขอความยินยอมจากเพื่อนทุกคนก่อนโพสต์ โดยไม่อ้างชื่อกฎหมายปลอม<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ต้นกล้าควรขอความยินยอมจากเพื่อนทุกคนที่เห็นหน้าชัดในวิดีโอก่อนโพสต์ ตามที่เอกสารครูแนะแนวและผู้ช่วย ข ระบุ ส่วนผู้ช่วย ก ที่บอกว่าโพสต์ได้เลยเพราะถ่ายในที่สาธารณะนั้นผิด และผู้ช่วย ค แม้ข้อสรุปจะตรงกันแต่ชื่อกฎหมายที่อ้างมาไม่มีอยู่จริง จึงไม่ควรนำชื่อกฎหมายนั้นไปอ้างอิงต่อ”<\/li><span class='gd-note'>[ ติดป้ายครบ แยกแยะได้ว่าข้อสรุปถูกแม้แหล่งอ้างอิงจะปลอม และสังเคราะห์ปลอดภัย ]<\/span><li>“เอกสารครูแนะแนวระบุชัดว่าต้องขอความยินยอมจากเจ้าของภาพเสมอไม่ว่าจะถ่ายที่สาธารณะหรือไม่ ผู้ช่วย ข และ ค สรุปตรงกับเอกสารนี้ ส่วนผู้ช่วย ก ที่บอกว่าโพสต์ได้ทันทีเพราะถ่ายในที่สาธารณะนั้นขัดแย้งชัดเจน และชื่อกฎหมายที่ผู้ช่วย ค อ้างก็ไม่มีอยู่จริงจึงไม่ควรนำไปอ้างต่อ ควรขอความยินยอมจากเพื่อนทุกคนก่อนโพสต์”<\/li><span class='gd-note'>[ ติดป้ายครบ แยกแยะข้อสรุปกับแหล่งอ้างอิงปลอมออกจากกันได้ และสังเคราะห์ถูกต้อง ]<\/span><\/ul><div class='gd-h gd-part'>ได้คะแนนบางส่วน<\/div><p>ติดป้ายถูกต้องบางส่วนหรือคำตอบสังเคราะห์ถูกทิศทางแต่ยังอ้างชื่อกฎหมายปลอมของผู้ช่วย ค โดยไม่ตั้งข้อสงสัย<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“ต้องขอความยินยอมก่อนโพสต์ตามพระราชบัญญัติสิทธิในภาพบุคคล พ.ศ. 2560 ที่ผู้ช่วย ค บอกมา”<\/li><span class='gd-note'>[ ข้อสรุปถูกทิศทางแต่ยังเชื่อและอ้างชื่อกฎหมายปลอมต่อโดยไม่ตรวจสอบ ]<\/span><li>“ควรขอความยินยอมก่อนโพสต์ เพราะผู้ช่วย ข และ ค บอกตรงกัน”<\/li><span class='gd-note'>[ สรุปถูกทิศทางแต่ยังไม่ได้ติดป้ายแยกแยะประโยคที่ขัดแย้งหรือระบุว่าชื่อกฎหมายของผู้ช่วย ค เป็นเรื่องที่ต้องตรวจสอบเพิ่ม ]<\/span><\/ul><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>สรุปว่าโพสต์ได้เลยตามคำตอบของผู้ช่วย ก หรือไม่ได้ติดป้ายเปรียบเทียบเลย<\/p><div class='gd-h gd-ex'>ตัวอย่างคำตอบ<\/div><ul><li>“โพสต์ได้เลยเพราะถ่ายในที่สาธารณะและเพจโรงเรียนไม่ได้หากำไร ตามที่ผู้ช่วย ก อธิบายไว้อย่างชัดเจน”<\/li><span class='gd-note'>[ เชื่อคำตอบที่มั่นใจที่สุดโดยไม่ตรวจสอบ ทั้งที่ขัดกับเอกสารครูแนะแนวในสถานการณ์ ]<\/span><\/ul>", "<div class='gd-h gd-full'>คะแนนเต็ม<\/div><p>เลือกตัวเลือก 3<\/p><div class='gd-h gd-zero'>ไม่ได้คะแนน<\/div><p>เลือกตัวเลือกอื่น<\/p>"];
+  function add(){
+    var box=document.getElementById("resultBreakdown"); if(!box) return;
+    var items=box.querySelectorAll(".result__item");
+    items.forEach(function(it,i){
+      if(it.querySelector(".gd-btn")||!RUB[i]) return;
+      var b=document.createElement("button"); b.type="button"; b.className="gd-btn"; b.setAttribute("aria-expanded","false");
+      b.textContent="\uD83D\uDCA1 ดูแนวทางการให้คะแนน";
+      var p=document.createElement("div"); p.className="gd-panel"; p.hidden=true; p.innerHTML=RUB[i];
+      b.addEventListener("click",function(){var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));b.textContent=o?"\uD83D\uDCA1 ซ่อนแนวทางการให้คะแนน":"\uD83D\uDCA1 ดูแนวทางการให้คะแนน";});
+      it.appendChild(b); it.appendChild(p);
+    });
+  }
+  var box=document.getElementById("resultBreakdown");
+  if(box){ new MutationObserver(add).observe(box,{childList:true}); add(); }
+})();
+</script>
 </body>
 </html>
