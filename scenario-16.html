@@ -117,27 +117,37 @@
   .checks .yes { color: var(--ok); } .checks .no { color: var(--danger); }
   .answer-img svg { display: block; width: 100%; height: auto; border-radius: 8px; margin-top: 10px; }
   .back-btn { display: block; width: 100%; margin-top: 16px; background: transparent; border: 1px solid var(--th-deep); color: var(--th-deep); }
-
-  /* ----- ปุ่ม/การ์ด hint (แนวทางการให้คะแนน) ----- */
-  .hint-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: var(--accent-soft); color: #5c3d17; border: 1px solid #e3c196; border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-  .hint-btn:hover { background: #ecd3af; }
-  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: flex-end; justify-content: center; z-index: 50; }
-  .modal[hidden] { display: none; }
-  .modal__sheet { background: var(--paper); width: 100%; max-width: 560px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 82vh; overflow-y: auto; position: relative; }
-  .modal__close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 16px; color: var(--ink-soft); cursor: pointer; }
-  .hint-modal__sheet { max-width: 600px; }
-  .hint-modal__sheet h3 { font-size: 16px; margin: 4px 0 2px; color: var(--th-deep); }
-  .hint-q { font-size: 12.5px; color: var(--ink-soft); background: #f1f4f8; border-radius: 10px; padding: 10px 12px; margin: 8px 0 16px; line-height: 1.55; }
-  .hint-level { border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; border: 1px solid var(--bubble-border); }
-  .hint-level--full { background: #eef6f0; border-color: #bfe0c6; }
-  .hint-level--partial { background: #fdf6e8; border-color: #e8d79a; }
-  .hint-level--none { background: #fbecec; border-color: #eab9b9; }
-  .hint-level h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--ink); }
-  .hint-level p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.55; color: var(--ink); }
-  .hint-level ul { margin: 0; padding-left: 18px; }
-  .hint-level li { font-size: 12px; line-height: 1.6; margin-bottom: 6px; color: var(--ink-soft); }
-
   :focus-visible { outline: 3px solid #2d7dd2; outline-offset: 2px; }
+
+  /* ---- ข้ออัตนัย: รอการตรวจคะแนน ---- */
+  .pending-badge { display:inline-block; background:#fff4d6; color:#8a5a00; border:1px solid #f0d58a;
+    border-radius:999px; padding:2px 10px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .pending-text { color:#8a5a00; }
+
+  /* ===== REVIEW-MODE: ย้อนดูคำตอบ (ล็อกการแก้ไข) ===== */
+  .review-btn { display:block; width:100%; margin-top:20px; background:var(--th-deep, var(--teal-deep, #134e4a)); color:#fff;
+    border:1px solid var(--th-deep, var(--teal-deep, #134e4a)); }
+  .review-btn:hover { filter:brightness(1.08); }
+  .review-btn__hint { display:block; margin-top:6px; font-size:12px; color:#6b665c; }
+  #reviewBar { position:fixed; left:0; right:0; bottom:0; z-index:2147482000;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.97);
+    border-top:1px solid #d9d4c7; box-shadow:0 -6px 18px rgba(0,0,0,.10); }
+  #reviewBar[hidden] { display:none; }
+  #reviewBar .review-bar__text { font-size:13px; font-weight:600; color:var(--th-deep, var(--teal-deep, #134e4a)); }
+  #reviewBar .review-bar__text small { display:block; font-weight:400; color:#6b665c; font-size:12px; }
+  #reviewBar .btn { background:var(--th-deep, var(--teal-deep, #134e4a)); color:#fff; padding:11px 18px; }
+  #reviewWatermark { position:fixed; inset:0; z-index:2147483647; pointer-events:none; user-select:none;
+    background-repeat:repeat; background-size:400px 230px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='230'><text x='200' y='115' transform='rotate(-22 200 115)' text-anchor='middle' dominant-baseline='middle' font-family='Noto Sans Thai, Tahoma, Leelawadee UI, sans-serif' font-size='24' font-weight='700' fill='%23222' fill-opacity='0.07'>ย้อนดูประวัติการทำแบบทดสอบ</text></svg>"); }
+  #reviewWatermark[hidden] { display:none; }
+  body.review-mode { padding-bottom:84px; }
+  body.review-mode #submitBtn, body.review-mode #quizStatus { display:none !important; }
+  body.answers-locked #quizSection button, body.answers-locked #quizSection label,
+  body.answers-locked .sim button, body.answers-locked .tool button, body.answers-locked .lab button,
+  body.answers-locked .plan-wrap button { cursor:default; }
+  body.answers-locked select:disabled, body.answers-locked input:disabled { color:#1c1a17; opacity:1; }
+  body.answers-locked textarea[readonly], body.answers-locked textarea[readonly]:focus { cursor:default; outline:none; box-shadow:none; }
 </style>
 </head>
 <body>
@@ -150,15 +160,6 @@
 <div id="mainScreen">
 
   <a class="back-link" href="index.html">‹ กลับไปหน้าหลัก</a>
-
-  <div class="modal" id="hintModal" hidden>
-    <div class="modal__sheet hint-modal__sheet">
-      <button class="modal__close" data-close="hintModal" type="button">✕</button>
-      <h3 id="hintTitle"></h3>
-      <div class="hint-q" id="hintQuestion"></div>
-      <div id="hintLevels"></div>
-    </div>
-  </div>
 
   <div class="scenario-intro">
     <p>เช้าวันหนึ่ง ในกลุ่มไลน์ “บ้านเราเรื่องเดียวกัน” ที่เกดอยู่ด้วย มีคนส่งภาพตลาดริมคลองแห่งหนึ่งที่น้ำท่วมสูงถึงเข่า มีชายและหญิงคู่หนึ่งกำลังช่วยกันยกถุงของลงจากเรือ พร้อมข้อความเรียกขอความช่วยเหลือ ภายในสิบนาทีมีคนแชร์ต่อไปแล้วกว่ายี่สิบคน พร้อมข้อความเชิญชวนบริจาคของ ดูบทสนทนาในกลุ่มได้ด้านล่างนี้</p>
@@ -273,6 +274,8 @@
       <h3>📊 ข้อมูลกระบวนการทำแบบทดสอบ</h3>
       <div id="behaviorRows"></div>
     </div>
+    <button class="btn review-btn" id="reviewBtn" type="button">🔍 ย้อนดูคำตอบของฉัน</button>
+    <span class="review-btn__hint">ดูสิ่งที่คุณเลือกและเขียนไว้ได้อย่างเดียว แก้ไขไม่ได้</span>
     <a href="index.html" style="text-decoration:none;">
       <button class="btn back-btn" type="button">‹ กลับไปหน้าหลัก</button>
     </a>
@@ -289,6 +292,8 @@
   const SCENARIO_ID = "scenario-16";
   const SCENARIO_NAME = "ข้อความเตือนภัยในกลุ่มไลน์พร้อมภาพตารางผลตรวจ";
   const MAX_SCORE = 5; // q1(3) + q2(2)
+  const ESSAY_MAX = 2;            // คะแนนเต็มข้ออัตนัย (ระบบไม่ตรวจ ครูตรวจใน Google Sheet)
+  const OBJECTIVE_MAX = MAX_SCORE - ESSAY_MAX;
 
   function loadProfile() {
     try { return JSON.parse(localStorage.getItem("pisaMailProfile") || "null"); }
@@ -587,7 +592,6 @@
     return { score, matched: [...matched], off, penalty, rows };
   }
 
-  // ---------- ข้อ 2: อัตนัย — ส่งข้อความดิบไปให้ Gemini ตรวจที่ Code.gs แทนการตรวจด้วย keyword ----------
 
   async function saveToSheet(payload) {
     if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXX")) return null;
@@ -615,23 +619,27 @@
 
     submitBtn.disabled = true;
     statusEl.style.color = "#5c655f";
-    statusEl.textContent = "กำลังให้ AI ตรวจคำตอบข้อ 2... (อาจใช้เวลาสักครู่)";
+    statusEl.textContent = "กำลังบันทึกคำตอบ...";
 
-    const q1Result = gradePins(tool.pins);
-    const nonAiScore = q1Result.score;
+    const q1Result = gradePins(tool.pins);   // ข้อ 1 ปรนัย/ชี้จุด ตรวจตามเกณฑ์
     const behaviorData = collectBehavior();
 
-    const serverResult = await saveToSheet({
+    const res = await saveToSheet({
       studentKey: profile.studentKey,
       name: profile.name,
       grade: profile.grade,
       school: profile.school,
       scenario_id: SCENARIO_ID,
       scenario_name: SCENARIO_NAME,
+      score: q1Result.score,
       max_score: MAX_SCORE,
-      non_ai_score: nonAiScore,
-      essay_question_key: "q2",
-      raw_answers: { essayText: q2_text },
+      objective_max: OBJECTIVE_MAX,
+      essay_max: ESSAY_MAX,
+      essay_status: "pending",
+      rubric: [
+        { q: "q1", label: "ข้อ 1 — วางหมุดชี้ร่องรอยในภาพ", score: q1Result.score, max: 3 },
+        { q: "q2", label: "ข้อ 2 — การตรวจสอบก่อนแชร์ต่อ", score: null, max: 2, status: "pending" },
+      ],
       details: {
         behavior: behaviorData,
         q1: {
@@ -640,104 +648,21 @@
           replace_count: tool.replaceCount, remove_count: tool.removeCount,
           first_pin_ms: tool.firstPinMs, log: tool.log,
         },
+        q2: { text: q2_text, max: 2, status: "pending" },
       },
     });
-
-    if (!serverResult || serverResult.result !== "success") {
-      statusEl.textContent = "ระบบตรวจคำตอบข้อ 2 ขัดข้อง กรุณาลองกดส่งคำตอบอีกครั้ง";
+    if (!res || res.result !== "success") {
+      statusEl.textContent = "บันทึกคำตอบไม่สำเร็จ กรุณาตรวจสอบอินเทอร์เน็ตแล้วกดส่งคำตอบอีกครั้ง";
       submitBtn.disabled = false;
       return;
     }
 
-    const q2Result = serverResult.essay || { score: 0, reasoning: "รอตรวจ"  };
-    const total_score = serverResult.total_score != null ? serverResult.total_score : nonAiScore + q2Result.score;
-
-    showResult({ q1: q1Result, q2: q2Result, total_score, behavior: behaviorData });
+    showResult({ q1: q1Result, total_score: q1Result.score, essay_pending: true, behavior: behaviorData });
   }
 
   function checksHTML(parts) {
     return `<ul class="checks">${parts.map((p) => `<li class="${p.ok ? "yes" : "no"}">${p.ok ? "✓" : "✗"} ${p.label}</li>`).join("")}</ul>`;
   }
-
-  // ---------- ข้อมูลแนวทางการให้คะแนน (hint/rubric) สำหรับหน้ารายงานผล — ใช้แสดงให้ผู้เรียนดูเองเท่านั้น
-  // ไม่ได้ใช้ในการคำนวณคะแนน ----------
-  const HINTS = {
-    q1: {
-      title: "ข้อ 1 — วางหมุดชี้ร่องรอยว่าไม่ใช่ภาพถ่ายจากเหตุการณ์จริง",
-      question: "จากภาพตลาดริมคลองที่แชร์ในกลุ่มไลน์ ให้วางหมุดอย่างน้อย 2 จุด สูงสุด 4 จุด บนตำแหน่งที่คิดว่าเป็นร่องรอยว่าภาพนี้ไม่ใช่ภาพถ่ายจากเหตุการณ์จริง และเลือกเหตุผลกำกับทุกหมุด",
-      levels: [
-        {
-          key: "full", label: "คะแนนเต็ม (3 คะแนน)",
-          desc: "ให้ 1 คะแนนต่อหมุดที่เข้าเงื่อนไขทั้งตำแหน่งและเหตุผล ไม่เกิน 3 คะแนน บริเวณที่ถือว่าถูกมี 3 บริเวณ คือ (1) มือขวาของชายที่ยืนด้านซ้ายของภาพ พร้อมเหตุผล 'สัดส่วนร่างกายผิดธรรมชาติ' (2) แนวเงาใต้เท้าบริเวณกลางถึงล่างของภาพที่เงาของสองคนทอดไปคนละทิศ พร้อมเหตุผล 'เงาหรือแสงไม่สอดคล้องกัน' (3) บริเวณป้ายร้านมุมซ้ายบนของภาพ พร้อมเหตุผล 'ตัวอักษรอ่านไม่ออก' วางหมุดถูกบริเวณและเลือกเหตุผลตรงครบทั้ง 3 จุด โดยมีหมุดที่ไม่ตรงบริเวณใดเลยไม่เกิน 1 หมุด จึงได้ 3 คะแนนเต็ม",
-          examples: [
-            "“หมุด 1 ที่มือชายด้านซ้าย เหตุผลสัดส่วนร่างกายผิดธรรมชาติ / หมุด 2 ที่แนวเงาใต้เท้า เหตุผลเงาหรือแสงไม่สอดคล้องกัน / หมุด 3 ที่ป้ายร้าน เหตุผลตัวอักษรอ่านไม่ออก” [ตรงทั้งตำแหน่งและเหตุผลครบ 3 จุด ได้ 3 คะแนนเต็ม]",
-            "“วาง 4 หมุด สามหมุดตรงบริเวณและเหตุผลถูกทั้งสามจุด ส่วนหมุดที่ 4 วางกลางท้องฟ้าแบบเผื่อเลือก” [มีหมุดผิดที่เพียง 1 หมุด ยังไม่ถึงเกณฑ์หักคะแนน จึงยังได้ 3 คะแนนเต็มจาก 3 จุดที่ตรง]",
-          ],
-        },
-        {
-          key: "partial", label: "ได้คะแนนบางส่วน (1-2 คะแนน)",
-          desc: "วางหมุดถูกบริเวณและเหตุผลตรงเพียง 1-2 จุดจากทั้งหมด 3 จุด หมุดที่อยู่นอกบริเวณทั้งสามนี้ หรืออยู่ในบริเวณถูกแต่เลือกเหตุผลไม่ตรงกับจุดนั้น ไม่ได้คะแนนสำหรับหมุดนั้น และหากในบรรดาหมุดที่วางมีหมุดที่ไม่ตรงบริเวณใดเลยตั้งแต่ 2 หมุดขึ้นไป ถือว่าเป็นการชี้แบบเดาไปทั่วภาพ ให้หักคะแนนรวมของข้อนี้ 1 คะแนน แต่ไม่ต่ำกว่า 0",
-          examples: [
-            "“ชี้ถูกเฉพาะมือหกนิ้วกับป้ายร้าน แต่ไม่ได้ชี้จุดเงา” [ตรง 2 จุด ได้ 2 คะแนน]",
-            "“ชี้ถูกเฉพาะจุดเงาเพียงจุดเดียว จุดอื่นวางไม่ตรงบริเวณหรือเลือกเหตุผลผิด” [ตรง 1 จุด ได้ 1 คะแนน]",
-          ],
-        },
-        {
-          key: "none", label: "ไม่ได้คะแนน (0 คะแนน)",
-          desc: "ไม่มีหมุดใดตรงทั้งบริเวณและเหตุผลที่กำหนดเลย หรือวางหมุดกระจายทั่วภาพแบบเดา",
-          examples: [
-            "“วางหมุด 4 จุดกระจายอยู่กลางท้องฟ้า พื้นน้ำ และตัวคนที่ไม่ใช่บริเวณเฉลย ทั้งหมดเลือกเหตุผลไม่ตรงจุด” [ไม่มีหมุดใดเข้าเงื่อนไข และมีหมุดผิดที่เกิน 1 หมุด ได้ 0 คะแนน]",
-          ],
-        },
-      ],
-    },
-    q2: {
-      title: "ข้อ 2 — การตรวจสอบก่อนแชร์ต่อ",
-      question: "ถ้าเกดยังไม่แน่ใจว่าภาพตลาดน้ำท่วมนี้เป็นภาพจริงหรือภาพที่ AI สร้างขึ้น ก่อนจะกดแชร์ต่อหรือชวนคนบริจาคของ เกดควรทำอย่างไรบ้าง อธิบายอย่างน้อย 2 วิธี พร้อมเหตุผลของแต่ละวิธี",
-      levels: [
-        {
-          key: "full", label: "คะแนนเต็ม (2 คะแนน)",
-          desc: "เสนอวิธีตรวจสอบก่อนเชื่อหรือแชร์ต่ออย่างน้อย 2 วิธีที่ปฏิบัติได้จริง พร้อมเหตุผลของแต่ละวิธี เช่น ค้นหาภาพย้อนกลับ สอบถามแหล่งข่าวที่น่าเชื่อถือในพื้นที่ หรือรอการยืนยันจากหน่วยงานราชการก่อน",
-          examples: [
-            "“ลองค้นภาพย้อนกลับดูว่ามีที่มาจากที่อื่นหรือไม่ และรอดูว่ามีสำนักข่าวหรือหน่วยงานท้องถิ่นยืนยันเหตุการณ์นี้หรือยัง ค่อยแชร์” [เสนอ 2 วิธีที่ปฏิบัติได้จริงพร้อมเหตุผลชัดเจน]",
-            "“ยังไม่แชร์ต่อทันที ลองถามคนในกลุ่มว่าใครเป็นคนถ่ายภาพนี้จริงๆ และดูว่าป้ายร้านหรือสถานที่ตรงกับจุดที่อ้างหรือไม่” [เสนอ 2 วิธีที่เชื่อมโยงกับการตรวจสอบแหล่งที่มา]",
-          ],
-        },
-        {
-          key: "partial", label: "ได้คะแนนบางส่วน (1 คะแนน)",
-          desc: "เสนอวิธีที่ปฏิบัติได้จริงเพียง 1 วิธี หรือเสนอ 2 วิธีแต่ไม่มีเหตุผลประกอบ",
-          examples: [
-            "“ลองค้นดูในอินเทอร์เน็ตก่อนว่าจริงไหม” [มีวิธีเดียวและไม่มีเหตุผลประกอบชัดเจน ได้ 1 คะแนน]",
-            "“ถามเพื่อนในกลุ่มและรอดูข่าว” [มี 2 แนวทางแต่ไม่อธิบายเหตุผลว่าทำไมวิธีนี้ช่วยตรวจสอบได้ ได้ 1 คะแนน]",
-          ],
-        },
-        {
-          key: "none", label: "ไม่ได้คะแนน (0 คะแนน)",
-          desc: "ตอบว่าแชร์ต่อได้เลยโดยไม่ตรวจสอบ หรือไม่ตอบตรงคำถาม",
-          examples: [
-            "“ถ้าไม่จริงคนคงไม่แชร์ต่อจำนวนมาก สามารถแชร์ต่อได้” [ไม่มีการตรวจสอบใดๆ ก่อนเชื่อและแชร์ ได้ 0 คะแนน]",
-          ],
-        },
-      ],
-    },
-  };
-
-  function openHint(key) {
-    const h = HINTS[key];
-    if (!h) return;
-    document.getElementById("hintTitle").textContent = "💡 แนวทางการให้คะแนน: " + h.title;
-    document.getElementById("hintQuestion").textContent = h.question;
-    document.getElementById("hintLevels").innerHTML = h.levels.map((lv) => `
-      <div class="hint-level hint-level--${lv.key}">
-        <h4>${lv.label}</h4>
-        <p>${lv.desc}</p>
-        ${lv.examples.length ? `<ul>${lv.examples.map((ex) => `<li>${ex}</li>`).join("")}</ul>` : ""}
-      </div>`).join("");
-    document.getElementById("hintModal").hidden = false;
-  }
-  document.querySelectorAll("[data-close]").forEach((btn) => btn.addEventListener("click", () => {
-    document.getElementById(btn.dataset.close).hidden = true;
-  }));
 
   // ---------- แสดงข้อมูลกระบวนการทำแบบทดสอบ (ใช้ร่วมกันทุกสถานการณ์) ----------
   function renderBehaviorHtml(b) {
@@ -782,8 +707,10 @@
     document.getElementById("quizSection").hidden = true;
     const resultSection = document.getElementById("resultSection");
     resultSection.hidden = false;
-    document.getElementById("resultTotal").textContent = `${data.total_score} / ${MAX_SCORE}`;
-    document.getElementById("resultPercent").innerHTML = `คิดเป็น <b>${Math.round((data.total_score / MAX_SCORE) * 100)}%</b> ของคะแนนเต็ม`;
+    document.getElementById("resultTotal").textContent = OBJECTIVE_MAX > 0 ? `${data.total_score} / ${OBJECTIVE_MAX}` : "รอตรวจ";
+    document.getElementById("resultPercent").innerHTML = OBJECTIVE_MAX > 0
+      ? `คะแนนส่วนปรนัย · ข้ออัตนัย (${ESSAY_MAX} คะแนน) <b class="pending-text">รอการตรวจคะแนน</b>`
+      : `ข้ออัตนัยทั้งหมด (${ESSAY_MAX} คะแนน) <b class="pending-text">รอการตรวจคะแนน</b>`;
     document.getElementById("behaviorRows").innerHTML = renderBehaviorHtml(data.behavior || {});
 
     const q1 = data.q1;
@@ -801,7 +728,6 @@
         : "ยังไม่มีหมุดใดตรงทั้งบริเวณและเหตุผลที่กำหนด";
     const penaltyNote = q1.penalty ? " และมีหมุดที่ไม่ตรงบริเวณใดเลยตั้งแต่ 2 หมุด จึงถูกหัก 1 คะแนนเพราะเป็นการชี้แบบเดาทั่วภาพ" : "";
 
-    const q2 = data.q2;
 
     document.getElementById("resultBreakdown").innerHTML = `
       <div class="result__item">
@@ -810,17 +736,92 @@
         ${checksHTML(pinRows)}
         ${checksHTML(regionRows)}
         <div class="answer-img">${marketSVG("ans", true)}</div>
-        <button class="hint-btn" type="button" onclick="openHint('q1')">💡 ดูแนวทางการให้คะแนน</button>
       </div>
       <div class="result__item">
-        <div class="result__item-head"><span>ข้อ 2 — การตรวจสอบก่อนแชร์ต่อ</span><span>${q2.score} / 2</span></div>
-        <div class="result__item-reason">${q2.reasoning || ""}</div>
-        <button class="hint-btn" type="button" onclick="openHint('q2')">💡 ดูแนวทางการให้คะแนน</button>
+        <div class="result__item-head"><span>ข้อ 2 — การตรวจสอบก่อนแชร์ต่อ</span><span class="pending-badge">รอการตรวจคะแนน</span></div>
+        <div class="result__item-reason">ระบบบันทึกคำตอบของคุณแล้ว ครูผู้สอนจะตรวจและแจ้งคะแนนภายหลัง (เต็ม 2 คะแนน)</div>
       </div>`;
     resultSection.scrollIntoView({ behavior: "smooth" });
   }
 
   document.getElementById("submitBtn").addEventListener("click", handleSubmit);
+</script>
+
+<!-- REVIEW-MODE -->
+<div id="reviewWatermark" aria-hidden="true" hidden></div>
+<div id="reviewBar" hidden>
+  <div class="review-bar__text">🔒 โหมดย้อนดูประวัติการทำแบบทดสอบ<small>ดูคำตอบได้อย่างเดียว ไม่สามารถแก้ไขได้</small></div>
+  <button class="btn" id="reviewBackBtn" type="button">‹ กลับไปหน้ารายงานผลคะแนน</button>
+</div>
+<script>
+(function () {
+  var quiz = document.getElementById("quizSection");
+  var res = document.getElementById("resultSection");
+  var openBtn = document.getElementById("reviewBtn");
+  var backBtn = document.getElementById("reviewBackBtn");
+  var bar = document.getElementById("reviewBar");
+  var wm = document.getElementById("reviewWatermark");
+  if (!quiz || !res || !openBtn) return;
+
+  // ส่วนที่เป็นพื้นที่ตอบ/ทดลอง ซึ่งต้องล็อกเมื่อส่งคำตอบแล้ว
+  var LOCK_SEL = "#quizSection, .sim, .tool, .lab, .plan-wrap";
+  var locked = false;
+
+  function lockAll() {
+    if (locked) return;
+    locked = true;
+    document.body.classList.add("answers-locked");
+    document.querySelectorAll(LOCK_SEL).forEach(function (box) {
+      box.querySelectorAll("input, select").forEach(function (el) { el.disabled = true; });
+      box.querySelectorAll("textarea").forEach(function (el) { el.readOnly = true; });
+      box.querySelectorAll("[draggable]").forEach(function (el) { el.setAttribute("draggable", "false"); });
+    });
+  }
+
+  // ตัวกันเหตุการณ์ (capture ที่ window จึงทำงานก่อนตัวจัดการของแต่ละสถานการณ์)
+  var NO_DEFAULT = { click:1, keydown:1, keypress:1, input:1, beforeinput:1, change:1, paste:1, cut:1, drop:1, dragstart:1, dragover:1, dragenter:1 };
+  var STOP_ONLY = { dblclick:1, mousedown:1, mouseup:1, pointerdown:1, pointerup:1, touchstart:1, touchend:1, keyup:1 };
+  var SCROLL_KEYS = { Tab:1, ArrowUp:1, ArrowDown:1, ArrowLeft:1, ArrowRight:1, PageUp:1, PageDown:1, Home:1, End:1, " ":0 };
+  function guard(e) {
+    if (!locked) return;
+    var t = e.target;
+    if (!(t instanceof Element)) return;
+    if (t.closest("#reviewBar, #reviewBtn")) return;
+    if (!t.closest(LOCK_SEL)) return;
+    if (t.closest("video, audio, a[href], .modal")) return;           // สื่อ/ลิงก์สำหรับดูเฉยๆ
+    if ((e.type === "keydown" || e.type === "keyup" || e.type === "keypress") && SCROLL_KEYS[e.key]) return;
+    e.stopImmediatePropagation();
+    if (NO_DEFAULT[e.type]) e.preventDefault();
+  }
+  Object.keys(NO_DEFAULT).concat(Object.keys(STOP_ONLY)).forEach(function (ev) {
+    window.addEventListener(ev, guard, { capture: true, passive: false });
+  });
+
+  // ล็อกทันทีที่หน้ารายงานผลปรากฏ
+  new MutationObserver(function () { if (!res.hidden) lockAll(); })
+    .observe(res, { attributes: true, attributeFilter: ["hidden"] });
+  if (!res.hidden) lockAll();
+
+  function enterReview() {
+    lockAll();
+    res.hidden = true;
+    quiz.hidden = false;
+    document.body.classList.add("review-mode");
+    bar.hidden = false;
+    wm.hidden = false;
+    quiz.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function exitReview() {
+    quiz.hidden = true;
+    res.hidden = false;
+    document.body.classList.remove("review-mode");
+    bar.hidden = true;
+    wm.hidden = true;
+    res.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  openBtn.addEventListener("click", enterReview);
+  backBtn.addEventListener("click", exitReview);
+})();
 </script>
 </body>
 </html>

@@ -224,24 +224,35 @@
   .qtable th { background: #eef4f0; }
   .good { color: var(--ok); font-weight: 700; } .low { color: var(--danger); font-weight: 700; }
 
-  /* ----- ปุ่ม/การ์ด hint (แนวทางการให้คะแนน) ----- */
-  .hint-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: var(--accent-soft); color: #5c3d17; border: 1px solid #e3c196; border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-  .hint-btn:hover { background: #ecd3af; }
-  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: flex-end; justify-content: center; z-index: 50; }
-  .modal[hidden] { display: none; }
-  .modal__sheet { background: var(--paper); width: 100%; max-width: 560px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 82vh; overflow-y: auto; position: relative; }
-  .modal__close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 16px; color: var(--ink-soft); cursor: pointer; }
-  .hint-modal__sheet { max-width: 600px; }
-  .hint-modal__sheet h3 { font-size: 16px; margin: 4px 0 2px; color: var(--th-deep); }
-  .hint-q { font-size: 12.5px; color: var(--ink-soft); background: #f1f4f8; border-radius: 10px; padding: 10px 12px; margin: 8px 0 16px; line-height: 1.55; }
-  .hint-level { border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; border: 1px solid var(--bubble-border); }
-  .hint-level--full { background: #eef6f0; border-color: #bfe0c6; }
-  .hint-level--partial { background: #fdf6e8; border-color: #e8d79a; }
-  .hint-level--none { background: #fbecec; border-color: #eab9b9; }
-  .hint-level h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--ink); }
-  .hint-level p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.55; color: var(--ink); }
-  .hint-level ul { margin: 0; padding-left: 18px; }
-  .hint-level li { font-size: 12px; line-height: 1.6; margin-bottom: 6px; color: var(--ink-soft); }
+  /* ---- ข้ออัตนัย: รอการตรวจคะแนน ---- */
+  .pending-badge { display:inline-block; background:#fff4d6; color:#8a5a00; border:1px solid #f0d58a;
+    border-radius:999px; padding:2px 10px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .pending-text { color:#8a5a00; }
+
+  /* ===== REVIEW-MODE: ย้อนดูคำตอบ (ล็อกการแก้ไข) ===== */
+  .review-btn { display:block; width:100%; margin-top:20px; background:var(--th-deep, var(--teal-deep, #134e4a)); color:#fff;
+    border:1px solid var(--th-deep, var(--teal-deep, #134e4a)); }
+  .review-btn:hover { filter:brightness(1.08); }
+  .review-btn__hint { display:block; margin-top:6px; font-size:12px; color:#6b665c; }
+  #reviewBar { position:fixed; left:0; right:0; bottom:0; z-index:2147482000;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.97);
+    border-top:1px solid #d9d4c7; box-shadow:0 -6px 18px rgba(0,0,0,.10); }
+  #reviewBar[hidden] { display:none; }
+  #reviewBar .review-bar__text { font-size:13px; font-weight:600; color:var(--th-deep, var(--teal-deep, #134e4a)); }
+  #reviewBar .review-bar__text small { display:block; font-weight:400; color:#6b665c; font-size:12px; }
+  #reviewBar .btn { background:var(--th-deep, var(--teal-deep, #134e4a)); color:#fff; padding:11px 18px; }
+  #reviewWatermark { position:fixed; inset:0; z-index:2147483647; pointer-events:none; user-select:none;
+    background-repeat:repeat; background-size:400px 230px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='230'><text x='200' y='115' transform='rotate(-22 200 115)' text-anchor='middle' dominant-baseline='middle' font-family='Noto Sans Thai, Tahoma, Leelawadee UI, sans-serif' font-size='24' font-weight='700' fill='%23222' fill-opacity='0.07'>ย้อนดูประวัติการทำแบบทดสอบ</text></svg>"); }
+  #reviewWatermark[hidden] { display:none; }
+  body.review-mode { padding-bottom:84px; }
+  body.review-mode #submitBtn, body.review-mode #quizStatus { display:none !important; }
+  body.answers-locked #quizSection button, body.answers-locked #quizSection label,
+  body.answers-locked .sim button, body.answers-locked .tool button, body.answers-locked .lab button,
+  body.answers-locked .plan-wrap button { cursor:default; }
+  body.answers-locked select:disabled, body.answers-locked input:disabled { color:#1c1a17; opacity:1; }
+  body.answers-locked textarea[readonly], body.answers-locked textarea[readonly]:focus { cursor:default; outline:none; box-shadow:none; }
 </style>
 </head>
 <body>
@@ -253,15 +264,6 @@
 <div id="mainScreen">
 
   <a class="back-link" href="index.html">‹ กลับไปหน้าหลัก</a>
-
-  <div class="modal" id="hintModal" hidden>
-    <div class="modal__sheet hint-modal__sheet">
-      <button class="modal__close" data-close="hintModal" type="button">✕</button>
-      <h3 id="hintTitle"></h3>
-      <div class="hint-q" id="hintQuestion"></div>
-      <div id="hintLevels"></div>
-    </div>
-  </div>
 
   <div class="scenario-intro">
     <p>ต้นกล้า ประธานชมรมถ่ายภาพของโรงเรียน กำลังตัดต่อวิดีโอสรุปกิจกรรมค่ายที่มีภาพใบหน้าเพื่อนหลายคนติดมาด้วย ก่อนโพสต์ลงเพจของโรงเรียน ต้นกล้าจำได้ว่าครูแนะแนวเคยแจกเอกสารสรุปสั้น ๆ ไว้ว่าการนำภาพที่เห็นใบหน้าชัดเจนของผู้อื่นไปเผยแพร่ต่อสาธารณะ โดยเฉพาะในลักษณะที่ระบุตัวตนได้ ควรได้รับความยินยอมจากเจ้าของภาพก่อนเสมอ ไม่ว่าภาพนั้นจะถ่ายในที่สาธารณะหรือไม่ก็ตาม ดูบทสนทนาของต้นกล้าได้ด้านล่างนี้</p>
@@ -366,6 +368,8 @@
       <h3>📊 ข้อมูลกระบวนการทำแบบทดสอบ</h3>
       <div id="behaviorRows"></div>
     </div>
+    <button class="btn review-btn" id="reviewBtn" type="button">🔍 ย้อนดูคำตอบของฉัน</button>
+    <span class="review-btn__hint">ดูสิ่งที่คุณเลือกและเขียนไว้ได้อย่างเดียว แก้ไขไม่ได้</span>
     <a href="index.html" style="text-decoration:none;">
       <button class="btn back-btn" type="button">‹ กลับไปหน้าหลัก</button>
     </a>
@@ -381,6 +385,8 @@
   const SCENARIO_ID = "scenario-20";
   const SCENARIO_NAME = "โพสต์ภาพเพื่อนในค่าย";
   const MAX_SCORE = 3;
+  const ESSAY_MAX = 2;            // คะแนนเต็มข้ออัตนัย (ระบบไม่ตรวจ ครูตรวจใน Google Sheet)
+  const OBJECTIVE_MAX = MAX_SCORE - ESSAY_MAX;
   const $ = (id) => document.getElementById(id);
 
   function loadProfile() {
@@ -710,22 +716,32 @@
     if (un.length) { st.textContent = `ข้อ 1: ยังมี ${un.length} ประโยคที่ไม่ได้ติดป้าย (ต้องติดป้ายให้ครบทุกประโยค)`; return; }
     if (!q44) { st.textContent = "ข้อ 1: กรุณาเขียนคำตอบสังเคราะห์"; return; }
     if (q2Selected === null) { st.textContent = "กรุณาเลือกคำตอบข้อ 2"; return; }
-    btn.disabled = true; st.style.color = "#5c655f"; st.textContent = "กำลังตรวจคะแนน...";
+    btn.disabled = true; st.style.color = "#5c655f"; st.textContent = "กำลังบันทึกคำตอบ...";
 
-    const r1 = gradeQ44(state.labels, q44);
-    const r2 = { score: q2Selected === Q2_CORRECT ? 1 : 0 };
-    const total = r1.score + r2.score;
-    await saveToSheet({
+    const r2 = { score: q2Selected === Q2_CORRECT ? 1 : 0 };   // ข้อ 2 ปรนัย ตรวจตามเกณฑ์
+    const behavior = collectBehavior();
+    const res = await saveToSheet({
       studentKey: profile.studentKey, name: profile.name, grade: profile.grade, school: profile.school,
-      scenario_id: SCENARIO_ID, scenario_name: SCENARIO_NAME, score: total, max_score: MAX_SCORE,
+      scenario_id: SCENARIO_ID, scenario_name: SCENARIO_NAME, score: r2.score, max_score: MAX_SCORE,
+      objective_max: OBJECTIVE_MAX, essay_max: ESSAY_MAX, essay_status: "pending",
+      rubric: [
+        { q: "q1", label: "ข้อ 1 — ติดป้ายและสังเคราะห์คำตอบ", score: null, max: 2, status: "pending" },
+        { q: "q2", label: "ข้อ 2 — สรุปสิ่งที่ต้นกล้าควรทำ", score: r2.score, max: 1 },
+      ],
       details: {
-        behavior: collectBehavior(),
-        q1: { score: r1.score, labels: state.labels, key_points_correct: r1.L, text: q44 },
+        behavior,
+        q1: { labels: state.labels, text: q44, max: 2, status: "pending" },
         q2: { score: r2.score, selected: q2Selected },
         sim_log: { labeled: ALL_IDS.length - un.length, change_count: state.changeCount, order: state.order, log: state.log, synth_length: $("synText").value.length, resets: state.resets, asks: state.asks, question_edited: state.askEdited },
       },
     });
-    show({ r1, r2, total, behavior: collectBehavior() });
+    if (!res || res.result !== "success") {
+      st.textContent = "บันทึกคำตอบไม่สำเร็จ กรุณาตรวจสอบอินเทอร์เน็ตแล้วกดส่งคำตอบอีกครั้ง";
+      btn.disabled = false;
+      return;
+    }
+
+    show({ r2, total: r2.score, behavior });
   }
   // ---------- แสดงข้อมูลกระบวนการทำแบบทดสอบ (ใช้ร่วมกันทุกสถานการณ์) ----------
   function renderBehaviorHtml(b) {
@@ -768,98 +784,98 @@
 
   function show(d) {
     $("quizSection").hidden = true; $("resultSection").hidden = false;
-    $("resultTotal").textContent = `${d.total} / ${MAX_SCORE}`;
-    $("resultPercent").innerHTML = `คิดเป็น <b>${Math.round((d.total / MAX_SCORE) * 100)}%</b> ของคะแนนเต็ม`;
+    $("resultTotal").textContent = OBJECTIVE_MAX > 0 ? `${d.total} / ${OBJECTIVE_MAX}` : "รอตรวจ";
+    $("resultPercent").innerHTML = OBJECTIVE_MAX > 0
+      ? `คะแนนส่วนปรนัย · ข้ออัตนัย (${ESSAY_MAX} คะแนน) <b class="pending-text">รอการตรวจคะแนน</b>`
+      : `ข้ออัตนัยทั้งหมด (${ESSAY_MAX} คะแนน) <b class="pending-text">รอการตรวจคะแนน</b>`;
     $("behaviorRows").innerHTML = renderBehaviorHtml(d.behavior || {});
-    const r1 = d.r1;
-    const q1Reason = r1.postNow ? "คำตอบสรุปว่าโพสต์ได้เลย ซึ่งขัดกับเอกสารครูแนะแนวที่ให้ขอความยินยอมก่อนเสมอ"
-      : r1.score === 2 ? "ติดป้ายถูกอย่างน้อย 5 จาก 6 จุดสำคัญ ระบุว่าชื่อกฎหมายของผู้ช่วย ค ไม่มีอยู่จริง และสรุปให้ขอความยินยอมจากเพื่อนทุกคน"
-      : r1.adoptFake ? "ข้อสรุปถูกทิศทาง แต่ยังอ้างชื่อกฎหมายของผู้ช่วย ค โดยไม่ตั้งข้อสงสัยว่าเป็นกฎหมายที่ไม่มีอยู่จริง"
-      : r1.score === 1 ? "ติดป้ายถูกบางส่วน หรือข้อสรุปถูกทิศทางแต่ยังไม่ได้ระบุว่าชื่อกฎหมายของผู้ช่วย ค เป็นแหล่งที่ต้องตรวจสอบ" : "ยังไม่ได้แยกแยะคำตอบที่ขัดแย้งกับเอกสารและยังไม่สรุปว่าต้องขอความยินยอมก่อนโพสต์";
-    const q1Checks = r1.points.concat([
-      { ok: r1.consent, label: "คำตอบสังเคราะห์สรุปว่าต้องขอความยินยอมจากเพื่อนก่อนโพสต์" },
-      { ok: r1.lawFlag, label: "ระบุว่าชื่อกฎหมายของผู้ช่วย ค เป็นแหล่งที่แต่งขึ้นเองหรือไม่มีอยู่จริง" },
-      { ok: !r1.adoptFake && !r1.postNow, label: "ไม่อ้างชื่อกฎหมายปลอมและไม่สรุปว่าโพสต์ได้เลย" },
-    ]);
     $("resultBreakdown").innerHTML = `
-      <div class="result__item"><div class="result__item-head"><span>ข้อ 1 — ติดป้ายและสังเคราะห์คำตอบ</span><span>${r1.score} / 2</span></div>
-        <div class="result__item-reason">${q1Reason} (ติดป้ายถูก ${r1.L} จาก 6 จุดสำคัญ)</div>${checksHTML(q1Checks)}${sentenceTable()}
-        <button class="hint-btn" type="button" onclick="openHint('q1')">💡 ดูแนวทางการให้คะแนน</button></div>
+      <div class="result__item"><div class="result__item-head"><span>ข้อ 1 — ติดป้ายและสังเคราะห์คำตอบ</span><span class="pending-badge">รอการตรวจคะแนน</span></div>
+        <div class="result__item-reason">ระบบบันทึกคำตอบของคุณแล้ว ครูผู้สอนจะตรวจและแจ้งคะแนนภายหลัง (เต็ม ${ESSAY_MAX} คะแนน)</div>${sentenceTable()}</div>
       <div class="result__item"><div class="result__item-head"><span>ข้อ 2 — สรุปสิ่งที่ต้นกล้าควรทำ</span><span>${d.r2.score} / 1</span></div>
-        <div class="result__item-reason">${d.r2.score ? "เลือกถูกต้อง: ควรขอความยินยอมจากเพื่อนก่อนโพสต์ภาพหน้าชัด" : "คำตอบที่ถูกคือข้อ 3 ควรขอความยินยอมจากเพื่อนก่อนโพสต์ภาพหน้าชัด"}</div>
-        <button class="hint-btn" type="button" onclick="openHint('q2')">💡 ดูแนวทางการให้คะแนน</button></div>`;
+        <div class="result__item-reason">${d.r2.score ? "เลือกถูกต้อง: ควรขอความยินยอมจากเพื่อนก่อนโพสต์ภาพหน้าชัด" : "คำตอบที่ถูกคือข้อ 3 ควรขอความยินยอมจากเพื่อนก่อนโพสต์ภาพหน้าชัด"}</div></div>`;
     $("resultSection").scrollIntoView({ behavior: "smooth" });
   }
-  // ---------- ข้อมูลแนวทางการให้คะแนน (hint/rubric) สำหรับหน้ารายงานผล — ใช้แสดงให้ผู้เรียนดูเองเท่านั้น
-  // ไม่ได้ใช้ในการคำนวณคะแนน ----------
-  const HINTS = {
-    q1: {
-      title: "ข้อ 1 — ติดป้ายและเขียนคำตอบสังเคราะห์",
-      question: "อ่านคำตอบของผู้ช่วยทั้งสามตัวเกี่ยวกับการโพสต์ภาพเพื่อนในค่าย ติดป้ายกำกับทุกประโยคว่า ตรวจสอบได้ ตรวจสอบไม่ได้ หรือขัดแย้งกับคำตอบอื่น โดยเทียบกับเอกสารของครูแนะแนว จากนั้นเขียนคำตอบสังเคราะห์ว่าต้นกล้าควรทำอย่างไรก่อนโพสต์วิดีโอ โดยใช้เฉพาะข้อมูลที่ตรวจสอบได้เท่านั้น",
-      levels: [
-        {
-          key: "full", label: "คะแนนเต็ม (2 คะแนน)",
-          desc: "ติดป้ายถูกต้องอย่างน้อย 5 ใน 6 จุดสำคัญ รวมถึงระบุว่าชื่อกฎหมายของผู้ช่วย ค เป็นแหล่งที่แต่งขึ้นเอง และคำตอบสังเคราะห์สรุปว่าต้องขอความยินยอมจากเพื่อนทุกคนก่อนโพสต์ โดยไม่อ้างชื่อกฎหมายปลอม",
-          examples: [
-            "“ต้นกล้าควรขอความยินยอมจากเพื่อนทุกคนที่เห็นหน้าชัดในวิดีโอก่อนโพสต์ ตามที่เอกสารครูแนะแนวและผู้ช่วย ข ระบุ ส่วนผู้ช่วย ก ที่บอกว่าโพสต์ได้เลยเพราะถ่ายในที่สาธารณะนั้นผิด และผู้ช่วย ค แม้ข้อสรุปจะตรงกันแต่ชื่อกฎหมายที่อ้างมาไม่มีอยู่จริง จึงไม่ควรนำชื่อกฎหมายนั้นไปอ้างอิงต่อ”",
-            "“เอกสารครูแนะแนวระบุชัดว่าต้องขอความยินยอมจากเจ้าของภาพเสมอไม่ว่าจะถ่ายที่สาธารณะหรือไม่ ผู้ช่วย ข และ ค สรุปตรงกับเอกสารนี้ ส่วนผู้ช่วย ก ที่บอกว่าโพสต์ได้ทันทีเพราะถ่ายในที่สาธารณะนั้นขัดแย้งชัดเจน และชื่อกฎหมายที่ผู้ช่วย ค อ้างก็ไม่มีอยู่จริงจึงไม่ควรนำไปอ้างต่อ ควรขอความยินยอมจากเพื่อนทุกคนก่อนโพสต์”",
-          ],
-        },
-        {
-          key: "partial", label: "ได้คะแนนบางส่วน (1 คะแนน)",
-          desc: "ติดป้ายถูกต้องบางส่วนหรือคำตอบสังเคราะห์ถูกทิศทางแต่ยังอ้างชื่อกฎหมายปลอมของผู้ช่วย ค โดยไม่ตั้งข้อสงสัย",
-          examples: [
-            "“ต้องขอความยินยอมก่อนโพสต์ตามพระราชบัญญัติสิทธิในภาพบุคคล พ.ศ. 2560 ที่ผู้ช่วย ค บอกมา”",
-            "“ควรขอความยินยอมก่อนโพสต์ เพราะผู้ช่วย ข และ ค บอกตรงกัน”",
-          ],
-        },
-        {
-          key: "none", label: "ไม่ได้คะแนน (0 คะแนน)",
-          desc: "สรุปว่าโพสต์ได้เลยตามคำตอบของผู้ช่วย ก หรือไม่ได้ติดป้ายเปรียบเทียบเลย",
-          examples: [
-            "“โพสต์ได้เลยเพราะถ่ายในที่สาธารณะและเพจโรงเรียนไม่ได้หากำไร ตามที่ผู้ช่วย ก อธิบายไว้อย่างชัดเจน”",
-          ],
-        },
-      ],
-    },
-    q2: {
-      title: "ข้อ 2 — สรุปสิ่งที่ต้นกล้าควรทำ",
-      question: "จากการเปรียบเทียบคำตอบทั้งสามชุดกับเอกสารของครูแนะแนว ข้อใดสรุปสิ่งที่ต้นกล้าควรทำได้ถูกต้องที่สุด",
-      levels: [
-        {
-          key: "full", label: "คะแนนเต็ม (1 คะแนน)",
-          desc: "เลือกตัวเลือก 3 — ควรขอความยินยอมจากเพื่อนก่อนโพสต์ภาพหน้าชัด",
-          examples: [],
-        },
-        {
-          key: "none", label: "ไม่ได้คะแนน (0 คะแนน)",
-          desc: "เลือกตัวเลือกอื่น",
-          examples: [],
-        },
-      ],
-    },
-  };
-
-  function openHint(key) {
-    const h = HINTS[key];
-    if (!h) return;
-    $("hintTitle").textContent = "💡 แนวทางการให้คะแนน: " + h.title;
-    $("hintQuestion").textContent = h.question;
-    $("hintLevels").innerHTML = h.levels.map((lv) => `
-      <div class="hint-level hint-level--${lv.key}">
-        <h4>${lv.label}</h4>
-        <p>${lv.desc}</p>
-        ${lv.examples.length ? `<ul>${lv.examples.map((ex) => `<li>${ex}</li>`).join("")}</ul>` : ""}
-      </div>`).join("");
-    $("hintModal").hidden = false;
-  }
-  document.querySelectorAll("[data-close]").forEach((btn) => btn.addEventListener("click", () => {
-    $(btn.dataset.close).hidden = true;
-  }));
-
   $("submitBtn").addEventListener("click", handleSubmit);
   renderQ2();
 
+</script>
+
+<!-- REVIEW-MODE -->
+<div id="reviewWatermark" aria-hidden="true" hidden></div>
+<div id="reviewBar" hidden>
+  <div class="review-bar__text">🔒 โหมดย้อนดูประวัติการทำแบบทดสอบ<small>ดูคำตอบได้อย่างเดียว ไม่สามารถแก้ไขได้</small></div>
+  <button class="btn" id="reviewBackBtn" type="button">‹ กลับไปหน้ารายงานผลคะแนน</button>
+</div>
+<script>
+(function () {
+  var quiz = document.getElementById("quizSection");
+  var res = document.getElementById("resultSection");
+  var openBtn = document.getElementById("reviewBtn");
+  var backBtn = document.getElementById("reviewBackBtn");
+  var bar = document.getElementById("reviewBar");
+  var wm = document.getElementById("reviewWatermark");
+  if (!quiz || !res || !openBtn) return;
+
+  // ส่วนที่เป็นพื้นที่ตอบ/ทดลอง ซึ่งต้องล็อกเมื่อส่งคำตอบแล้ว
+  var LOCK_SEL = "#quizSection, .sim, .tool, .lab, .plan-wrap";
+  var locked = false;
+
+  function lockAll() {
+    if (locked) return;
+    locked = true;
+    document.body.classList.add("answers-locked");
+    document.querySelectorAll(LOCK_SEL).forEach(function (box) {
+      box.querySelectorAll("input, select").forEach(function (el) { el.disabled = true; });
+      box.querySelectorAll("textarea").forEach(function (el) { el.readOnly = true; });
+      box.querySelectorAll("[draggable]").forEach(function (el) { el.setAttribute("draggable", "false"); });
+    });
+  }
+
+  // ตัวกันเหตุการณ์ (capture ที่ window จึงทำงานก่อนตัวจัดการของแต่ละสถานการณ์)
+  var NO_DEFAULT = { click:1, keydown:1, keypress:1, input:1, beforeinput:1, change:1, paste:1, cut:1, drop:1, dragstart:1, dragover:1, dragenter:1 };
+  var STOP_ONLY = { dblclick:1, mousedown:1, mouseup:1, pointerdown:1, pointerup:1, touchstart:1, touchend:1, keyup:1 };
+  var SCROLL_KEYS = { Tab:1, ArrowUp:1, ArrowDown:1, ArrowLeft:1, ArrowRight:1, PageUp:1, PageDown:1, Home:1, End:1, " ":0 };
+  function guard(e) {
+    if (!locked) return;
+    var t = e.target;
+    if (!(t instanceof Element)) return;
+    if (t.closest("#reviewBar, #reviewBtn")) return;
+    if (!t.closest(LOCK_SEL)) return;
+    if (t.closest("video, audio, a[href], .modal")) return;           // สื่อ/ลิงก์สำหรับดูเฉยๆ
+    if ((e.type === "keydown" || e.type === "keyup" || e.type === "keypress") && SCROLL_KEYS[e.key]) return;
+    e.stopImmediatePropagation();
+    if (NO_DEFAULT[e.type]) e.preventDefault();
+  }
+  Object.keys(NO_DEFAULT).concat(Object.keys(STOP_ONLY)).forEach(function (ev) {
+    window.addEventListener(ev, guard, { capture: true, passive: false });
+  });
+
+  // ล็อกทันทีที่หน้ารายงานผลปรากฏ
+  new MutationObserver(function () { if (!res.hidden) lockAll(); })
+    .observe(res, { attributes: true, attributeFilter: ["hidden"] });
+  if (!res.hidden) lockAll();
+
+  function enterReview() {
+    lockAll();
+    res.hidden = true;
+    quiz.hidden = false;
+    document.body.classList.add("review-mode");
+    bar.hidden = false;
+    wm.hidden = false;
+    quiz.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function exitReview() {
+    quiz.hidden = true;
+    res.hidden = false;
+    document.body.classList.remove("review-mode");
+    bar.hidden = true;
+    wm.hidden = true;
+    res.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  openBtn.addEventListener("click", enterReview);
+  backBtn.addEventListener("click", exitReview);
+})();
 </script>
 </body>
 </html>
